@@ -1,7 +1,7 @@
 {
   "name": "mobile",
   "description": "",
-  "main": "",
+  "main": "app.js",
   "authors": [
     "xiangqingyi <1352493573@qq.com>"
   ],
