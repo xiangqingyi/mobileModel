@@ -1,0 +1,52 @@
+{
+  "name": "toilet",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "npm run local",
+    "local": "cross-env NODE_ENV=local nodemon ./app.js --ignore public/ --ignore views/",
+    "dev": "cross-env NODE_ENV=development nodemon ./app.js --ignore public/ --ignore views/",
+    "server": "cross-env NODE_ENV=production node app",
+    "DB_dev": "cross-env NODE_ENV=development node ./DBUpdate.js",
+    "DB_pro": "cross-env NODE_ENV=production node ./DBUpdate.js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "connect-multiparty": "^2.2.0",
+    "connect-redis": "^3.4.0",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "fs-extra": "^7.0.1",
+    "gravatar": "^1.8.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "lodash": "^4.17.11",
+    "logger": "0.0.1",
+    "marked": "^0.5.2",
+    "moment": "^2.23.0",
+    "mongoose": "^5.3.16",
+    "morgan": "^1.9.1",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "strip": "^3.0.0",
+    "underscore": "^1.9.1",
+    "uuid": "^3.3.2",
+    "winston": "^2.4.2",
+    "winston-daily-rotate-file": "^3.5.1",
+    "xss": "^1.0.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cross-env": "^4.0.0",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0",
+    "pngdefry": "^1.1.6",
+    "supertest": "^2.0.1"
+  }
+}
