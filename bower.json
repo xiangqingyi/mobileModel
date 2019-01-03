@@ -1,0 +1,36 @@
+{
+  "name": "mobile",
+  "description": "",
+  "main": "",
+  "authors": [
+    "xiangqingyi <1352493573@qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/assets/plugins",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "select2": "^4.0.5",
+    "font-awesome": "^4.7.0",
+    "Ionicons": "ionicons#^2.0.1",
+    "jquery-ui": "1.11.4",
+    "admin-lte": "^2.4.8",
+    "axios": "^0.18.0",
+    "sweetalert2": "^7.29.2",
+    "jquery-mobile": "^1.4.5  "
+  },
+  "resolutions": {
+    "jquery": "^3.2.1"
+  },
+  "private": true
+  
+}
