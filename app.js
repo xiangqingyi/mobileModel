@@ -10,7 +10,7 @@ let cookieParser = require('cookie-parser');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session); //存储session,防止服务重启后session丢失
 let bodyParser = require('body-parser');
-let csrf = require('csurf');//后台验证的时候使用
+// let csrf = require('csurf');//后台验证的时候使用
 let moment = require('moment');//日期解析使用
 let _ = require('lodash');//字串处理
 let multipart = require('connect-multiparty'); //解析文件
@@ -99,16 +99,16 @@ app.use(multipart({
 core.walk(appPath + '/routes/api', 'middlewares', function(path) {
     require(path)(app);
 });
-app.use(csrf({ cookie: true }));
+// app.use(csrf({ cookie: true }));
 app.use(core.translateHomePageDir('/public'),express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
-    res.header('X-Powered-By', 'icivet');
-    if (req.csrfToken) {
-        res.cookie('TOKEN', req.csrfToken())
-    }
+    res.header('X-Powered-By', 'mobile');
+    // if (req.csrfToken) {
+    //     res.cookie('TOKEN', req.csrfToken())
+    // }
     // TODO remove
-    res.locals.token = req.csrfToken && req.csrfToken();
+    // res.locals.token = req.csrfToken && req.csrfToken();
 
     res.locals.query = req.query;
     if (req.session && req.session.user) {
