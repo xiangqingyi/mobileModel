@@ -12,7 +12,7 @@ let CommentSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Content'
     },
-    reply: {
+    reply: { //回复的哪个评论
         type: Schema.ObjectId,
         ref: 'Comment'
     },
@@ -23,10 +23,7 @@ let CommentSchema = new Schema({
     name: {
         type: String
     },
-    website: {
-        type: String
-    },
-    comments:[{
+    comments:[{  //该条评论之下的评论
         type: Schema.ObjectId,
         ref: 'Comment'
     }],
