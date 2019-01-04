@@ -80,7 +80,7 @@ exports.userAddComment = async (req,res) => {
     }
 }
 // list列表
-exports.list = function (req, res) {
+exports.list = async (req, res) => {
     let condition = {};
     Comment.count(condition, function (err, total) {
       let query = Comment.find({}).populate('author').populate('from');
@@ -98,3 +98,23 @@ exports.list = function (req, res) {
     })
   }
   
+
+
+  //用户留言模块
+
+  exports.userAddMessage = async (req,res) => {
+      if (req.session.user) {
+          res.render('app/info',{
+              message: '登录过期，请重新登录'
+          })
+      }
+      let obj = _.pick(req.body,'content','to');
+      obj.from = req.session.user._id;
+      obj.status = 1;
+      let newMessage = await Message(obj);
+      newMessage.save();
+      res.json({
+          message:'留言成功',
+          success: true
+      })
+  }
