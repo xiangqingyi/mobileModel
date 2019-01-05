@@ -26,6 +26,8 @@
     "gravatar": "^1.8.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^8.4.0",
+    "jwt-simple": "^0.5.5",
     "lodash": "^4.17.11",
     "logger": "0.0.1",
     "marked": "^0.5.2",
