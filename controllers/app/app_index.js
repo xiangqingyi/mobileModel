@@ -54,7 +54,7 @@ exports.userRegister = async (req,res) => {
                 success: false
             })
         } else {
-            let newUser = await User(userData);
+            let newUser = await new User(userData);
             newUser.save();
             res.json({
                 message: '注册成功',
@@ -71,7 +71,7 @@ exports.userAddComment = async (req,res) => {
 
     } else if (req.method === 'POST') {
         let obj = _.pick(req.body,'content','from','reply','name','eamil');
-        let newComment = await Comment(obj);
+        let newComment = await new Comment(obj);
         newComment.save();
         res.json({
             message:'增加评论成功',
@@ -111,7 +111,7 @@ exports.list = async (req, res) => {
       let obj = _.pick(req.body,'content','to');
       obj.from = req.session.user._id;
       obj.status = 1;
-      let newMessage = await Message(obj);
+      let newMessage = await new Message(obj);
       newMessage.save();
       res.json({
           message:'留言成功',

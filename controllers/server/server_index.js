@@ -166,7 +166,7 @@ exports.tagadd  =async (req,res) => {
         author: req.session.user,
         status: 0
     }
-    let _tagData = await Tag(tagData);
+    let _tagData = await new Tag(tagData);
     _tagData.save();
     res.render('server/info',{
         message: '新建标签成功'
