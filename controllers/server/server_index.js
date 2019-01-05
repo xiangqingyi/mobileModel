@@ -110,7 +110,7 @@ exports.commentone = async (req,res) => {
         })
     }
 }
-
+// 删除留言
 exports.commentdel = async (req,res) => {
     let id = req.params.id;
     let _comment = await Comment.findById(id);
@@ -121,4 +121,54 @@ exports.commentdel = async (req,res) => {
             message: '这条留言不存在'
         })
     }
+}
+// Tag模块
+exports.taglist = async (req, res) => {
+    let total = await Tag.count({status: {$ne: -1}});
+    let tags =await Tag.find({status: {$ne: -1}});
+    let pageInfo = util.createPage(req.query.page,total);
+    if (tags) {
+        res.render('server/tag/list',{
+            Menu:'list',
+            tags: tags,
+            pageInfo: pageInfo
+        })
+    } 
+}
+
+exports.tagone = async (req, res) => {
+    let id = req.params.id;
+    let tag = await Tag.findById(id);
+    if (tag) {
+        res.render({
+            tag: tag
+        })
+    } else {
+        res.render('server/info', {
+            message: '该标签不存在'
+        })
+    }
+}
+
+exports.tagdel = async (req, res) => {
+    let id = req.params.id;
+    await Tag.remove({_id: id});
+    res.render('server/info',{
+        message: '删除标签成功'
+    })
+}
+exports.tagadd  =async (req,res) => {
+    let name = req.body.name;
+    let description = req.body.description;
+    let tagData = {
+        name: name,
+        description: description,
+        author: req.session.user,
+        status: 0
+    }
+    let _tagData = await Tag(tagData);
+    _tagData.save();
+    res.render('server/info',{
+        message: '新建标签成功'
+    })
 }
