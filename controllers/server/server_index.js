@@ -7,6 +7,7 @@ let Log = mongoose.model('Log');
 let Content = mongoose.model('Content');
 let Message = mongoose.model('Message');
 let Tag = mongoose.model('Tag');
+let util = require('../../libs/core')
 
 // 管理员登录
 exports.userLogin = async (req,res) => {
@@ -77,6 +78,46 @@ exports.messagedel = async (req, res) =>{
         })
     } else {
         res.render('server/info', {
+            message: '这条留言不存在'
+        })
+    }
+}
+
+// 管理员评论版块
+// 管理员评论列表
+exports.commentlist = async (req,res) => {
+    let comments = await Comment.find({status: {$ne: -1}});
+    let total = await Comment.count({status: {$ne: -1}});
+    let pageInfo = util.createPage(req.query.page, total);
+    res.render('server/comment/list',{
+        comments: comments,
+        Menu: 'list',
+        pageInfo: pageInfo
+    })
+}
+
+exports.commentone = async (req,res) => {
+    let id = req.params.id;
+    let _comment = await Comment.findById(id).populate('from');
+    if (_comment) {
+        res.render('server/comment/item',{
+            title: _comment.from.username + '的评论',
+            comment: _comment
+        })
+    } else {
+        res.render('server/info', {
+            message: '这条评论不存在'
+        })
+    }
+}
+
+exports.commentdel = async (req,res) => {
+    let id = req.params.id;
+    let _comment = await Comment.findById(id);
+    if (_comment) {
+        await Comment.remove({_id: id})
+    } else {
+        res.render('server/info',{
             message: '这条留言不存在'
         })
     }
