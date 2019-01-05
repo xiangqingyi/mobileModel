@@ -39,3 +39,45 @@ exports.userLogin = async (req,res) => {
 
 // 管理员暂时不设置注册功能 会给定一个用于管理的账号
 
+// 管理员接收留言的列表
+exports.messagelist = async (req,res) => {
+    let message = await Message.find({status:{$ne: -1}}); //找出没有删除的留言
+    let total = await Message.count({status: {$ne: -1}});
+    let pageInfo = util.createPage(req.query.page, total);
+    res.render('server/message/list',{
+        Menu: 'list',
+        messages: message,
+        pageInfo: pageInfo
+    })
+}
+//单条消息
+exports.messageone = async (req,res) => {
+    let id = req.params.id;
+    let _message = await Message.findById(id).populate('from')
+    if (_message) {
+        res.render('server/message/item', {
+            title: _message.from.username + '的留言',
+            message: _message
+        })
+    } else {
+        res.render('server/info',{
+            message: '这条留言不存在'
+        })
+    }
+}
+
+// 删除留言
+exports.messagedel = async (req, res) =>{
+    let id = req.params.id;
+    let _message = await Message.findById(id);
+    if (_message) {
+        await Message.remove({_id: id})
+        res.render('server/info', {
+            message: '删除留言成功'
+        })
+    } else {
+        res.render('server/info', {
+            message: '这条留言不存在'
+        })
+    }
+}
